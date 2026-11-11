@@ -16,9 +16,22 @@
 <meta name="twitter:title" content="ArkPlay — The Ark Programming Language">
 <meta name="twitter:description" content="The Ark Programming Language — write and run Ark in your browser.">
 <meta name="twitter:image" content="https://nabeelalihashmi.github.io/arkplay/og-image.png">
+<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-KQKC8B2P"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+</script>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "zc485o796m");
+</script>
 <link rel="icon" type="image/png" href="logo.png">
 <link rel="manifest" href="manifest.json">
-<title>ArkPlay - The Ark Programming Language by Nabeel Ali Hashmi</title>
+<title>ArkPlay - Playground for The Ark Programming Languag by Nabeel Ali Hashmi</title>
 <style>
   :root {
     color-scheme: dark;
@@ -316,6 +329,24 @@
     padding: 7px 10px; border-radius: 5px; cursor: pointer; text-align: left; }
   #ctx button:hover { background: var(--hover); }
   #ctx hr { border: 0; border-top: 1px solid var(--line-soft); margin: 4px 6px; }
+
+  /* quick open (Ctrl+P): go-to-file overlay, VS Code style */
+  #qopen { position: fixed; top: 70px; left: 50%; transform: translateX(-50%);
+    z-index: 130; width: min(480px, calc(100vw - 32px)); display: none;
+    background: var(--panel); border: 1px solid var(--line); border-radius: 10px;
+    box-shadow: 0 12px 40px rgba(0,0,0,.5); overflow: hidden; }
+  #qopen.open { display: block; }
+  #qopen input { width: 100%; box-sizing: border-box; background: transparent;
+    border: 0; outline: 0; border-bottom: 1px solid var(--line-soft);
+    color: var(--text); font: 13px var(--mono); padding: 11px 14px; }
+  #qopen input::placeholder { color: var(--dim); }
+  #qopenList { max-height: 300px; overflow-y: auto; padding: 5px; }
+  #qopenList div { padding: 7px 10px; border-radius: 5px; cursor: pointer;
+    color: var(--muted); font: 12.5px var(--mono); display: flex;
+    justify-content: space-between; gap: 10px; }
+  #qopenList div.sel { background: var(--hover); color: var(--text); }
+  #qopenList div small { color: var(--dim); font-size: 10.5px; }
+  #qopenList .empty { padding: 12px; color: var(--dim); cursor: default; }
 
   /* about dialog */
   #aboutWrap { position: fixed; inset: 0; z-index: 130; display: none;
@@ -634,6 +665,12 @@
   </div>
 </section>
 <div id="termPill"><svg class="icon"><use href="#i-terminal"/></svg> Terminal</div>
+
+<!-- quick open: Ctrl+P go-to-file -->
+<div id="qopen">
+  <input id="qopenInput" type="text" placeholder="Go to file… (↑↓ to pick, Enter to open, Esc to close)" autocomplete="off" spellcheck="false">
+  <div id="qopenList"></div>
+</div>
 
 <!-- context menu -->
 <div id="ctx"></div>
@@ -1459,6 +1496,80 @@ function maybeShowStarNudge() {
 $('starNudgeClose').addEventListener('click', () => starDismiss($('starNudgeRemember').checked));
 $('starNudgeGo').addEventListener('click', () => starDismiss(true));
 
+/* ── Ctrl+P quick open (go to file) + Ctrl+Shift+P command palette ──
+   Capture phase so the browser's print dialog never sees the combo. */
+const qopen = $('qopen'), qopenInput = $('qopenInput'), qopenList = $('qopenList');
+let qopenItems = [], qopenSel = 0;
+
+function qopenClose() {
+  qopen.classList.remove('open');
+  qopenInput.value = '';
+}
+
+function qopenRender() {
+  const q = qopenInput.value.trim().toLowerCase();
+  const paths = [...project.files.keys()].sort((a, b) =>
+    (a === 'main.ark' ? -1 : 0) - (b === 'main.ark' ? -1 : 0) || a.localeCompare(b));
+  qopenItems = paths.filter(p => !q || p.toLowerCase().includes(q));
+  qopenSel = 0;
+  qopenList.innerHTML = '';
+  if (!qopenItems.length) {
+    const d = document.createElement('div');
+    d.className = 'empty'; d.textContent = 'No matching files';
+    qopenList.appendChild(d);
+    return;
+  }
+  qopenItems.forEach((p, i) => {
+    const d = document.createElement('div');
+    if (i === qopenSel) d.className = 'sel';
+    const name = document.createElement('span'); name.textContent = p;
+    d.appendChild(name);
+    if (p === project.active) {
+      const s = document.createElement('small'); s.textContent = 'open';
+      d.appendChild(s);
+    }
+    d.addEventListener('click', () => { qopenClose(); openTab(p); });
+    d.addEventListener('mousemove', () => {
+      if (qopenSel !== i) { qopenSel = i; qopenRender(); }
+    });
+    qopenList.appendChild(d);
+  });
+}
+
+function qopenOpen() {
+  qopen.classList.add('open');
+  qopenRender();
+  qopenInput.focus();
+}
+
+qopenInput.addEventListener('input', qopenRender);
+qopenInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') { e.preventDefault(); qopenClose(); editor && editor.focus(); return; }
+  if (e.key === 'ArrowDown') { e.preventDefault(); qopenSel = Math.min(qopenItems.length - 1, qopenSel + 1); qopenRender(); return; }
+  if (e.key === 'ArrowUp') { e.preventDefault(); qopenSel = Math.max(0, qopenSel - 1); qopenRender(); return; }
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    const p = qopenItems[qopenSel];
+    if (p) { qopenClose(); openTab(p); }
+  }
+});
+window.addEventListener('mousedown', (e) => {
+  if (qopen.classList.contains('open') && !qopen.contains(e.target)) qopenClose();
+});
+
+window.addEventListener('keydown', (e) => {
+  if (!(e.ctrlKey || e.metaKey) || e.altKey) return;
+  if (e.code !== 'KeyP') return;
+  e.preventDefault();   // browser print never fires
+  e.stopPropagation();
+  if (e.shiftKey) {
+    // command palette: same as F1 inside the editor
+    if (editor) { editor.focus(); editor.trigger('kb', 'editor.action.quickCommand', null); }
+    return;
+  }
+  qopenOpen();
+}, true);
+
 /* ══════════════ Monaco setup ══════════════ */
 const ARK_KEYWORDS = [
   'function', 'class', 'trait', 'record', 'init', 'new', 'this', 'use',
@@ -1537,8 +1648,9 @@ require(['vs/editor/editor.main'], () => {
     },
     onEnterRules: [
       {
-        // Enter between {} -> indent AND outdent, cursor between
-        beforeText: /^\s*\{[^"'{}]*$/,
+        // Enter between {} -> indent AND outdent, cursor between.
+        // The line may carry code before the brace (e.g. "fn f() {").
+        beforeText: /^.*\{[^"'{}]*$/,
         afterText: /^\s*\}[^"']*$|^$/,
         action: { indentAction: mon.languages.IndentAction.IndentOutdent },
       },
