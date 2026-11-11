@@ -4,6 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#141518">
+<meta name="description" content="The Ark Programming Language — write and run Ark code right in your browser. A modern, general-purpose language with generics, classes, records and errors.">
+<meta property="og:title" content="ArkPlay — The Ark Programming Language">
+<meta property="og:description" content="The Ark Programming Language — write and run Ark in your browser.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nabeelalihashmi.github.io/arkplay/">
+<meta property="og:image" content="https://nabeelalihashmi.github.io/arkplay/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ArkPlay — The Ark Programming Language">
+<meta name="twitter:description" content="The Ark Programming Language — write and run Ark in your browser.">
+<meta name="twitter:image" content="https://nabeelalihashmi.github.io/arkplay/og-image.png">
 <link rel="icon" type="image/png" href="logo.png">
 <link rel="manifest" href="manifest.json">
 <title>ArkPlay - The Ark Programming Language by Nabeel Ali Hashmi</title>
@@ -56,6 +68,11 @@
   svg.icon { width: 15px; height: 15px; stroke: currentColor; fill: none;
     stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round;
     flex: none; vertical-align: -2px; }
+
+  /* visually hidden (SEO/screen-reader heading, real DOM position) */
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0;
+    margin: -1px; overflow: hidden; clip: rect(0 0 0 0);
+    white-space: nowrap; border: 0; }
 
   /* topbar */
   #topbar {
@@ -386,8 +403,9 @@
     /* dvh so the phone browser's URL bar can never push the status
        bar off-screen (100vh fallback stays above for old browsers) */
     #shell { height: calc(100vh - 70px); height: calc(100dvh - 70px); }
-    /* drawer close (×) lives in the drawer header on mobile */
-    #sideClose { display: inline-flex; }
+    /* drawer close (×): big, left side of the drawer header */
+    #sideClose { display: inline-flex; width: 32px; height: 32px; }
+    #sideClose svg.icon { width: 18px; height: 18px; }
     /* declutter: disk-folder + save + desktop-collapse toggle go;
        topbar = logo | examples · star · about · ☰ */
     #openDirBtn, #saveBtn, #sideBtn { display: none; }
@@ -436,10 +454,15 @@
       justify-content: center; border-radius: 0;
       border-left: 0; border-right: 0; border-bottom: 0; }
 
-    /* status bar: status + © left, linkedin right; drop the rest */
-    #statusbar { padding: 0 8px; gap: 8px; font-size: 10.5px; }
-    #statusbar .sb-globe, #statusbar .sb-entry, #statusbar .sb-ver,
-    #posHint { display: none; }
+    /* status bar: no status text on mobile — full copyright on the
+       left edge, icon-only linkedin + website on the right edge */
+    #statusbar { padding: 0 10px; gap: 8px; font-size: 10.5px;
+      width: 100%; box-sizing: border-box; }
+    #statusbar .sb-left { display: none; }
+    #statusTxt, #statusbar .sb-label, #statusbar .sb-entry,
+    #statusbar .sb-ver, #posHint { display: none; }
+    #statusbar .sb-right { flex: 1; gap: 12px; }
+    #statusbar .sb-right .sb-link:first-child { margin-right: auto; }
 
     /* nudge spans the width under the toolbar */
     #starNudge { left: 8px; right: 8px; width: auto; top: 54px; }
@@ -447,6 +470,9 @@
 </style>
 </head>
 <body>
+
+<!-- accessible page title (SEO + screen readers; visually hidden) -->
+<h1 class="sr-only">The Ark Language Playground</h1>
 
 <!-- icon set -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -511,10 +537,10 @@
     <button class="tbtn" id="fontMinus" title="Smaller font (A-)" style="font: 600 11px var(--mono); width: auto; padding: 0 6px;">A−</button>
     <button class="tbtn" id="fontPlus" title="Larger font (A+)" style="font: 600 11px var(--mono); width: auto; padding: 0 6px;">A+</button>
     <button class="tbtn" id="vimBtn" title="Toggle vim mode" style="font: 600 11px var(--mono); width: auto; padding: 0 7px;">VIM</button>
-    <button class="tbtn" id="examplesBtn" title="Examples"><svg class="icon"><use href="#i-book"/></svg></button>
-    <a class="tbtn" id="ghStarBtn" href="https://github.com/nabeelalihashmi/arkplay" target="_blank" rel="noopener" title="Star Ark on GitHub" style="text-decoration:none"><svg class="icon"><use href="#i-star"/></svg></a>
-    <button class="tbtn" id="aboutBtn" title="About Ark"><svg class="icon"><use href="#i-info"/></svg></button>
-    <button class="tbtn" id="menuBtn" title="Project files"><svg class="icon"><use href="#i-menu"/></svg></button>
+    <button class="tbtn" id="examplesBtn" title="Examples" aria-label="Examples"><svg class="icon"><use href="#i-book"/></svg></button>
+    <a class="tbtn" id="ghStarBtn" href="https://github.com/nabeelalihashmi/arkplay" target="_blank" rel="noopener" title="Star Ark on GitHub" aria-label="Star Ark on GitHub" style="text-decoration:none"><svg class="icon"><use href="#i-star"/></svg></a>
+    <button class="tbtn" id="aboutBtn" title="About Ark" aria-label="About Ark"><svg class="icon"><use href="#i-info"/></svg></button>
+    <button class="tbtn" id="menuBtn" title="Project files" aria-label="Project files"><svg class="icon"><use href="#i-menu"/></svg></button>
     <button id="runBtn" disabled>
       <svg class="icon play"><use href="#i-play"/></svg>
       <svg class="icon spin"><use href="#i-spin"/></svg>
@@ -548,10 +574,10 @@
 <div id="shell">
   <aside id="sidebar">
     <div class="sideHead">
+      <button class="tbtn" id="sideClose" title="Close" aria-label="Close project drawer"><svg class="icon"><use href="#i-x"/></svg></button>
       <span>PROJECT</span>
       <span class="acts">
-        <button class="tbtn" id="sideClose" title="Close"><svg class="icon"><use href="#i-x"/></svg></button>
-        <button class="tbtn" id="newFileBtn" title="New file"><svg class="icon"><use href="#i-plus"/></svg></button>
+        <button class="tbtn" id="newFileBtn" title="New file" aria-label="New file"><svg class="icon"><use href="#i-plus"/></svg></button>
       </span>
     </div>
     <div id="tree"></div>
@@ -582,9 +608,9 @@
     <span id="statusTxt">Loading compiler...</span>
   </div>
   <div class="sb-right">
-    <a class="sb-link" href="LICENSE" target="_blank" rel="noopener" title="MIT License">© 2026 Nabeel Ali Hashmi · MIT</a>
-    <a class="sb-link" href="https://linkedin.com/in/nabeelalihashmi" target="_blank" rel="noopener"><svg class="icon"><use href="#i-linkedin"/></svg> linkedin</a>
-    <a class="sb-link sb-globe" href="https://nabeelhashmi.com" target="_blank" rel="noopener"><svg class="icon"><use href="#i-globe"/></svg> nabeelhashmi.com</a>
+    <a class="sb-link" href="LICENSE" target="_blank" rel="noopener" title="MIT License" aria-label="MIT License">© 2026 Nabeel Ali Hashmi · MIT</a>
+    <a class="sb-link" href="https://linkedin.com/in/nabeelalihashmi" target="_blank" rel="noopener" title="LinkedIn" aria-label="LinkedIn"><svg class="icon"><use href="#i-linkedin"/></svg> <span class="sb-label">linkedin</span></a>
+    <a class="sb-link sb-globe" href="https://nabeelhashmi.com" target="_blank" rel="noopener" title="nabeelhashmi.com" aria-label="Website"><svg class="icon"><use href="#i-globe"/></svg> <span class="sb-label">nabeelhashmi.com</span></a>
     <span class="sb-entry" id="sbEntry">entry: main.ark</span>
     <span id="vimState" style="display:none">-- NORMAL --</span>
     <span id="posHint">Ln 1, Col 1</span>
