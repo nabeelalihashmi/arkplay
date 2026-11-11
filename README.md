@@ -2,7 +2,7 @@
 
 by Nabeel Ali Hashmi
 
-[nabeelhashmi.com](https://nabeelhashmi.com) &nbsp;·&nbsp; [Arkivya](https://arkivya.com)
+[nabeelhashmi.com](https://nabeelhashmi.com) &nbsp;·&nbsp; [Arkivya](https://arkivya.com) &nbsp;·&nbsp; [Play online](https://nabeelalihashmi.github.io/arkplay/)
 
 The Ark Programming Language is a general purpose programming language for every one, built from base to bloom elegance with eloquent syntax bringing ease with speed.
 
