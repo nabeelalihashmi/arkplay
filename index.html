@@ -114,6 +114,7 @@
     font-size: 10.5px; font-weight: 600; letter-spacing: .12em;
   }
   .sideHead .acts { display: flex; gap: 2px; }
+  #sideClose { display: none; }
   .sideHead .tbtn { width: 22px; height: 22px; }
   .sideHead .tbtn svg.icon { width: 13px; height: 13px; }
 
@@ -380,10 +381,16 @@
   /* ══════ MOBILE (<720px): drawer sidebar, floating Run, compact bars ══════ */
   @media (max-width: 720px) {
     #topbar { height: 46px; padding: 0 8px; gap: 6px; }
-    #logo .name { display: none; }
     #logo img { width: 26px; height: 26px; }
     #menuBtn { display: inline-flex; }
-    #shell { height: calc(100vh - 70px); }
+    /* dvh so the phone browser's URL bar can never push the status
+       bar off-screen (100vh fallback stays above for old browsers) */
+    #shell { height: calc(100vh - 70px); height: calc(100dvh - 70px); }
+    /* drawer close (×) lives in the drawer header on mobile */
+    #sideClose { display: inline-flex; }
+    /* declutter: disk-folder + save + desktop-collapse toggle go;
+       topbar = logo | examples · star · about · ☰ */
+    #openDirBtn, #saveBtn, #sideBtn { display: none; }
 
     /* sidebar becomes a slide-in drawer from the RIGHT over a backdrop */
     #sidebar { position: fixed; right: 0; left: auto; top: 46px; bottom: 24px;
@@ -543,6 +550,7 @@
     <div class="sideHead">
       <span>PROJECT</span>
       <span class="acts">
+        <button class="tbtn" id="sideClose" title="Close"><svg class="icon"><use href="#i-x"/></svg></button>
         <button class="tbtn" id="newFileBtn" title="New file"><svg class="icon"><use href="#i-plus"/></svg></button>
       </span>
     </div>
@@ -1404,6 +1412,7 @@ function toggleMobileDrawer() {
   $('sidebar').classList.toggle('collapsed');
 }
 $('mobileBackdrop').addEventListener('click', closeMobileDrawer);
+$('sideClose').addEventListener('click', closeMobileDrawer);
 
 /* github star nudge: once a day until starred or "don't ask again" */
 function starDismiss(remember) {
