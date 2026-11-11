@@ -1,0 +1,19 @@
+// match — switch by value with boolean case patterns.
+// It is an EXPRESSION: it evaluates to the chosen arm's value.
+
+grade = match(88) {
+    (_ > 90) => 'A',
+    (_ <= 90 && _ > 80) => 'B',
+    (_ <= 80 && _ > 70) => 'C',
+    default => 'F',
+}
+print(grade)
+
+// Any expression works as the subject — equality patterns too:
+day = "sun"
+mood = match(day) {
+    (_ == "sat") => "relax",
+    (_ == "sun") => "slow start",
+    default => "work",
+}
+print(mood)

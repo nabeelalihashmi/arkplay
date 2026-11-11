@@ -1,0 +1,23 @@
+// Strings — interpolation, rune-safe indexing, heredocs.
+
+s = "The Ark Programming Language"
+print(len(s), len("héllo"))    // len counts RUNES: héllo is 5
+
+print(s[0], s[4:7])            // index gives a 1-char string
+print(s[4:7] + "!")
+
+// ${expr} interpolates inside double quotes:
+n = 42
+print("value: ${n}, next: ${n + 1}")
+
+// Single quotes are PLAIN — no interpolation:
+print('plain $n stays literal')
+
+// Triple quotes are raw multiline text — verbatim, nothing special:
+form = """<form id="main">
+  <label>$name</label>
+</form>"""
+print(len(form))
+
+// Runtime kind checks:
+print(n is int, s is string, gettype(n))

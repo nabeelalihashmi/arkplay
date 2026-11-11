@@ -1,0 +1,36 @@
+// Functions — types before names, result type after the header.
+
+function add(int a, int b) int {
+    return a + b
+}
+
+// Untyped parameters are typed by whole-program evidence:
+function twice(n) int {
+    return n * 2
+}
+
+// Named arguments can skip ahead or reorder; trailing defaults
+// can be omitted. Types pin from every call site's evidence.
+function volume(int w, int h, int d) int {
+    return w * h * d
+}
+
+// A rest parameter gathers extra arguments:
+function total(...nums) int {
+    t = 0
+    for (n in nums) { t = t + n }
+    return t
+}
+
+// Arrow lambdas are expressions:
+double = (x) => x * 2
+
+print(add(2, 3))
+print(twice(21))
+print(volume(2, 3, 4))
+print(volume(d: 4, w: 2, h: 3))
+print(total(1, 2, 3, 4))
+print(double(8))
+
+// The pipe operator feeds ONE value into ONE callable:
+print(5 |> (x) => x * 3)

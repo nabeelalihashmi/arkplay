@@ -1,0 +1,36 @@
+// Arrays — typed by evidence, with real slice/spread idioms.
+
+nums = [3, 1, 2]
+print(nums, len(nums))
+
+push(nums, 4)              // append in place — a statement, not a value
+print(nums)
+
+print(nums[0], nums[1:3])  // index and slice
+print(sort_array(nums))    // sorted COPY — nums untouched
+print(nums)
+
+// Spread builds NEW arrays. Insert/remove ride slices:
+more = [...nums, 5]
+print(more)
+
+inserted = [...more[0:2], 99, ...more[2:]]
+print(inserted)
+
+popped = [...inserted[0:len(inserted) - 1]]
+print(popped)
+
+// when filters (may shrink), then transforms (never shrinks).
+// Chains read left to right, in execution order:
+evens = [...[1..10] when (n) => n % 2 == 0]
+print(evens)
+
+squares = [...evens then (n) => n * n]
+print(squares)
+
+both = [...[1..10] when (n) => n % 3 == 0 then (n) => n * n]
+print(both)
+
+// Fixed arrays are real native slots — length checker-enforced:
+int[3] fixed = [7, 8, 9]
+print(fixed, fixed[2])

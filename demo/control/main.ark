@@ -1,0 +1,30 @@
+// Control flow — conditions in parens, bodies in braces, no ceremony.
+
+x = 7
+if (x > 5) {
+    print("big")
+} else if (x < 0) {
+    print("negative")
+} else {
+    print("small")
+}
+
+i = 0
+while (i < 3) {
+    print("while", i)
+    i++
+}
+
+// Classic three-part form:
+for (j = 0; j < 3; j++) { print("classic", j) }
+
+// for-in walks a collection's VALUES:
+for (item in ["a", "b", "c"]) { print("in", item) }
+
+// for-pairs hands you index AND value:
+arr = ["x", "y"]
+for (arr as index => value) { print("pair", index, value) }
+
+// Ranges: inclusive both ends, direction FROM the bounds.
+for (n in [1..5]) { print("range", n) }
+for (n in [10..1 step 4]) { print("down", n) }

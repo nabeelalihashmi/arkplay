@@ -1,0 +1,32 @@
+// Generics — type parameters pass through to real Go generics.
+
+function first<T>(T[] items) T {
+    return items[0]
+}
+print(first([1, 2, 3]))       // T := int, inferred
+print(first(["a", "b"]))      // T := string
+
+// The number bound unlocks arithmetic and ordering on T:
+function sum<T number>(T[] xs) T {
+    T total = 0
+    for (item in xs) { total = total + item }
+    return total
+}
+print(sum([1, 2, 3]), sum([1.5, 2.5]))
+
+// A string bound unlocks + (concatenation):
+function dup<T string>(T w) T {
+    return w + w
+}
+print(dup("ab"))
+
+// Generic classes — T infers from the init argument:
+class Box<T> {
+    T value
+    init(T v) { this.value = v }
+    function get() T { return this.value }
+}
+b = new Box(10)
+print(b.get())
+sb = new Box("hi")
+print(sb.get())

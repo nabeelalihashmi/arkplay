@@ -1,0 +1,10 @@
+// Modules — use "./file" imports an Ark file. Its declarations are
+// accessed through the module's namespace, so two files never collide.
+
+use "./utils"
+
+print(utils.twice(21))
+print(utils.NAME)
+
+p = new utils.Point(3, 4)
+print(p.describe())

@@ -1,0 +1,21 @@
+// Maps — ordered hash tables. Iteration follows insertion order,
+// stable across machines and runs.
+
+m = {"name": "Shoaib Sheraz", "age": 24}
+print(m["name"], m["age"])
+
+m["age"] = 25
+print(m)
+
+// PHP-style => pairs build maps too:
+ages = ["naeem" => 24, "shoaib" => 17]
+print(ages)
+
+// for-pairs walks key AND value:
+for (m as key => value) { print(key, value) }
+
+print(keys(ages), values(ages))
+
+// Destructure straight off the map's keys:
+{name, age} = m
+print(name, age)

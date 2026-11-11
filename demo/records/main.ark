@@ -1,0 +1,28 @@
+// Records — data-shape classes generated for you: the constructor
+// and field access come free, no init needed.
+
+record Point(int x, int y) {
+    function plus(Point other) Point {
+        return new Point(this.x + other.x, this.y + other.y)
+    }
+    function describe() string {
+        return "(${this.x}, ${this.y})"
+    }
+}
+
+p = new Point(1, 2)
+q = new Point(3, 4)
+
+print(p.x, p.y)
+print(q.describe())
+print(p.plus(q).describe())
+print(p.plus(q).x, p.plus(q).y)
+
+// Enums — plain string values, PascalCase members:
+enum Color {
+    Red,
+    Green,
+    Blue
+}
+c = Color.Green
+print(c, gettype(c))

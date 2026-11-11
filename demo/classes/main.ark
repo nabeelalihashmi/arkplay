@@ -1,0 +1,42 @@
+// Classes — fields listed bare, init runs on new, this is the receiver.
+
+class User {
+    name
+    init(string name) {
+        this.name = name
+    }
+    function describe() string {
+        return "user: ${this.name}"
+    }
+}
+
+u = new User("Syed Naeem Ali")
+print(u.name, u.describe())
+
+// extends chains fields and methods; parent:: dispatches to the base.
+class Admin extends User {
+    level
+    init(string name, int level) {
+        parent::init(name)
+        this.level = level
+    }
+    function describe() string {
+        return parent::describe() + " (admin level ${this.level})"
+    }
+}
+
+a = new Admin("Shoaib Sheraz", 3)
+print(a.name, a.level, a.describe())
+
+// Statics belong to the class itself — shared across instances:
+class Counter {
+    static count = 0
+    function bump() int {
+        Counter.count += 1
+        return Counter.count
+    }
+}
+c1 = new Counter()
+c2 = new Counter()
+c1.bump()
+print(c1.bump(), c2.bump(), Counter.count)

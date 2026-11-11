@@ -1,0 +1,21 @@
+// Hello World — your first Ark program.
+// print(...) writes a line to the terminal. Double-quoted strings
+// interpolate ${expressions} and bare $names.
+
+message = "Hello World!"
+print(message)
+
+name = "Nabeel Ali Hashmi"
+print("The name is ${name}")
+
+print("2 + 2 = ${2 + 2}")
+
+// A slot's type freezes at its first assignment:
+// name = 42          <- checker error: name is a string forever
+// The sanctioned escape hatch is an explicit dynamic:
+dynamic x = 5
+x = "now a string"
+x = [1, 2, 3]
+print(x)
+
+print(5 is int, "hi" is string)

@@ -1,0 +1,96 @@
+{
+  "version": 1,
+  "examples": [
+    {
+      "id": "hello",
+      "title": "Hello World",
+      "blurb": "print, strings, ${} interpolation — your first Ark program.",
+      "files": ["main.ark"],
+      "entry": "main.ark"
+    },
+    {
+      "id": "variables",
+      "title": "Variables & Types",
+      "blurb": "Inference, declared types, frozen slots, nullables, conversions.",
+      "files": ["main.ark"],
+      "entry": "main.ark"
+    },
+    {
+      "id": "functions",
+      "title": "Functions",
+      "blurb": "Typed params, defaults, named args, rest params, lambdas, pipes.",
+      "files": ["main.ark"],
+      "entry": "main.ark"
+    },
+    {
+      "id": "control",
+      "title": "Control Flow",
+      "blurb": "if/else, while, classic for, for-in, for-pairs, descending ranges.",
+      "files": ["main.ark"],
+      "entry": "main.ark"
+    },
+    {
+      "id": "match",
+      "title": "Match",
+      "blurb": "Switch by value with boolean case patterns — an expression, not a statement.",
+      "files": ["main.ark"],
+      "entry": "main.ark"
+    },
+    {
+      "id": "arrays",
+      "title": "Arrays",
+      "blurb": "push, slicing, spread, insert/remove idioms, when/then, fixed arrays.",
+      "files": ["main.ark"],
+      "entry": "main.ark"
+    },
+    {
+      "id": "maps",
+      "title": "Maps",
+      "blurb": "Ordered maps, => pairs, for-pairs, keys/values, destructuring.",
+      "files": ["main.ark"],
+      "entry": "main.ark"
+    },
+    {
+      "id": "strings",
+      "title": "Strings",
+      "blurb": "Rune-safe indexing, slices, interpolation, single quotes, heredocs.",
+      "files": ["main.ark"],
+      "entry": "main.ark"
+    },
+    {
+      "id": "classes",
+      "title": "Classes",
+      "blurb": "Fields, init, this, extends, parent::init, static members.",
+      "files": ["main.ark"],
+      "entry": "main.ark"
+    },
+    {
+      "id": "records",
+      "title": "Records & Enums",
+      "blurb": "Data-shape records with generated ctor/printing/==, string enums.",
+      "files": ["main.ark"],
+      "entry": "main.ark"
+    },
+    {
+      "id": "generics",
+      "title": "Generics",
+      "blurb": "Type parameters, number/string bounds, generic classes with inference.",
+      "files": ["main.ark"],
+      "entry": "main.ark"
+    },
+    {
+      "id": "errors",
+      "title": "Errors",
+      "blurb": "throw a value, catch it as one, finally, throwing from any depth.",
+      "files": ["main.ark"],
+      "entry": "main.ark"
+    },
+    {
+      "id": "modules",
+      "title": "Modules (2 files)",
+      "blurb": "use \"./utils\" imports a file; namespaces keep two files collision-free.",
+      "files": ["main.ark", "utils.ark"],
+      "entry": "main.ark"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+// utils.ark — an Ark module: declarations only, no top-level code.
+// Everything is exported unless marked private.
+
+const NAME = "the utils module"
+
+function twice(n) int {
+    return n * 2
+}
+
+class Point {
+    x
+    y
+    init(int x, int y) {
+        this.x = x
+        this.y = y
+    }
+    function describe() string {
+        return "(${this.x}, ${this.y})"
+    }
+}

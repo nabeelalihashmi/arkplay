@@ -1,0 +1,12 @@
+{
+  "name": "ArkPlay - The Ark Programming Language by Nabeel Ali Hashmi",
+  "short_name": "ArkPlay",
+  "description": "Browser playground for the Ark Programming Language",
+  "start_url": "./",
+  "display": "fullscreen",
+  "background_color": "#141518",
+  "theme_color": "#141518",
+  "icons": [
+    { "src": "logo.png", "sizes": "any", "type": "image/png", "purpose": "any" }
+  ]
+}

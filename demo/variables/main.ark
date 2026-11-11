@@ -1,0 +1,23 @@
+// Variables & types — inference does the work, declarations add rigor.
+
+x = 42          // int inferred
+f = 2.5         // float
+s = "ark"       // string
+ok = true       // bool
+
+// Declare a type and EVERY later assignment is checked:
+int n = 5
+n = n + 10
+
+print(n, x, f, s, ok)
+
+// Frozen slots never change kind silently:
+// n = "no"          <- checker error (n stays int)
+
+// Nullables admit null:
+int? maybe = null
+maybe = 7
+print(maybe, isset(maybe), empty(""))
+
+// Explicit conversions are builtins:
+print(int("123"), float("2.5"), str(99))
