@@ -1,4 +1,4 @@
-// Functions — types before names, result type after the header.
+// Functions - types before names, result type after the header.
 
 function add(int a, int b) int {
     return a + b

@@ -1,4 +1,4 @@
-// Records — data-shape classes generated for you: the constructor
+// Records - data-shape classes generated for you: the constructor
 // and field access come free, no init needed.
 
 record Point(int x, int y) {
@@ -18,7 +18,7 @@ print(q.describe())
 print(p.plus(q).describe())
 print(p.plus(q).x, p.plus(q).y)
 
-// Enums — plain string values, PascalCase members:
+// Enums - plain string values, PascalCase members:
 enum Color {
     Red,
     Green,

@@ -1,4 +1,4 @@
-// Errors — throw a value, catch it as one. finally always runs.
+// Errors - throw a value, catch it as one. finally always runs.
 
 try {
     throw "bad input"

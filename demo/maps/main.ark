@@ -1,4 +1,4 @@
-// Maps — ordered hash tables. Iteration follows insertion order,
+// Maps - ordered hash tables. Iteration follows insertion order,
 // stable across machines and runs.
 
 m = {"name": "Shoaib Sheraz", "age": 24}

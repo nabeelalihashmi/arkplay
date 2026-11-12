@@ -1,4 +1,5 @@
-// Generics — type parameters pass through to real Go generics.
+// Generics - real type parameters: write the function once, use it
+// with every element type, and the compiler checks each use.
 
 function first<T>(T[] items) T {
     return items[0]
@@ -20,7 +21,7 @@ function dup<T string>(T w) T {
 }
 print(dup("ab"))
 
-// Generic classes — T infers from the init argument:
+// Generic classes - T infers from the init argument:
 class Box<T> {
     T value
     init(T v) { this.value = v }

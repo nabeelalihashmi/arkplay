@@ -1,0 +1,50 @@
+// The Mandelbrot set - rendered one scanline per parallel task.
+//
+// parallel(fn, items) fans out: every element of the array gets its
+// own task running fn, and the results come back in input order.
+// 24 scanlines -> 24 parallel tasks -> one ASCII frame.
+//
+// This is the whole program. No threads API, no join, no mutex: the
+// fan-out is one call and the ordering is the language's contract.
+
+function row(int y) string {
+    w = 84
+    h = 24
+    out = ""
+    x = 0
+    while (x < w) {
+        // real coords: c = (x,y) mapped onto the interesting window;
+        // multiply by 1.0 first so the division is float math
+        cr = (x * 1.0 / w) * 3.2 - 2.1
+        ci = (y * 1.0 / h) * 2.4 - 1.2
+
+        // the escape-time loop: z = z^2 + c until |z|^2 > 4
+        zr = 0.0
+        zi = 0.0
+        i = 0
+        while (zr*zr + zi*zi <= 4.0 && i < 60) {
+            t = zr*zr - zi*zi + cr
+            zi = 2.0*zr*zi + ci
+            zr = t
+            i++
+        }
+
+        if (i >= 60) {
+            out = out + "#"          // survived every iteration: in the set
+        } else {
+            ramp = " .:-=+*%#@"      // escape speed -> shading
+            out = out + ramp[i % 9]
+        }
+        x++
+    }
+    return out
+}
+
+lines = parallel((y) => row(y), [...[0..23]])
+
+k = 0
+while (k < len(lines)) {
+    print(lines[k])
+    k++
+}
+print("mandelbrot 84x24, 60 iterations - one parallel task per scanline")

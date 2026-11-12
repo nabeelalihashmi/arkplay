@@ -1,4 +1,4 @@
-// Modules — use "./file" imports an Ark file. Its declarations are
+// Modules - use "./file" imports an Ark file. Its declarations are
 // accessed through the module's namespace, so two files never collide.
 
 use "./utils"

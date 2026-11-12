@@ -1,4 +1,4 @@
-// Classes — fields listed bare, init runs on new, this is the receiver.
+// Classes - fields listed bare, init runs on new, this is the receiver.
 
 class User {
     name
@@ -28,7 +28,7 @@ class Admin extends User {
 a = new Admin("Shoaib Sheraz", 3)
 print(a.name, a.level, a.describe())
 
-// Statics belong to the class itself — shared across instances:
+// Statics belong to the class itself - shared across instances:
 class Counter {
     static count = 0
     function bump() int {

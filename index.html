@@ -4,17 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#141518">
-<meta name="description" content="The Ark Programming Language — write and run Ark code right in your browser. A modern, general-purpose language with generics, classes, records and errors.">
-<meta property="og:title" content="ArkPlay — The Ark Programming Language">
-<meta property="og:description" content="The Ark Programming Language — write and run Ark in your browser.">
+<meta name="description" content="The Ark Programming Language: write and run Ark code right in your browser. A modern, general-purpose language with generics, classes, records and errors.">
+<meta property="og:title" content="ArkPlay | The Ark Programming Language">
+<meta property="og:description" content="The Ark Programming Language: write and run Ark in your browser.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://nabeelalihashmi.github.io/arkplay/">
 <meta property="og:image" content="https://nabeelalihashmi.github.io/arkplay/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="ArkPlay — The Ark Programming Language">
-<meta name="twitter:description" content="The Ark Programming Language — write and run Ark in your browser.">
+<meta name="twitter:title" content="ArkPlay | The Ark Programming Language">
+<meta name="twitter:description" content="The Ark Programming Language: write and run Ark in your browser.">
 <meta name="twitter:image" content="https://nabeelalihashmi.github.io/arkplay/og-image.png">
 <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-KQKC8B2P"></script>
 <script>
@@ -91,7 +91,6 @@
   #topbar {
     height: 50px; display: flex; align-items: center; gap: 10px;
     padding: 0 14px; background: var(--panel);
-    border-bottom: 1px solid var(--line);
   }
   #topbar .spacer { flex: 1; }
   #menuBtn { display: none; }
@@ -135,9 +134,9 @@
   /* sidebar */
   #sidebar {
     width: 228px; flex: none; display: flex; flex-direction: column;
-    background: var(--panel); border-right: 1px solid var(--line);
+    background: var(--panel);
   }
-  #sidebar.collapsed { width: 0; overflow: hidden; border-right: 0; }
+  #sidebar.collapsed { width: 0; overflow: hidden; }
   .sideHead {
     display: flex; align-items: center; justify-content: space-between;
     padding: 9px 10px 7px 14px; color: var(--dim);
@@ -160,11 +159,6 @@
   .row .fname { overflow: hidden; text-overflow: ellipsis; }
   .row .dirtyDot { width: 5px; height: 5px; border-radius: 50%;
     background: var(--muted); margin-left: auto; flex: none; }
-
-  #sideFoot {
-    padding: 8px 14px; border-top: 1px solid var(--line-soft);
-    color: var(--dim); font-size: 11px;
-  }
 
   /* main column */
   #main { flex: 1; display: flex; flex-direction: column; min-width: 0;
@@ -389,7 +383,7 @@
   .exCard .b { color: var(--muted); font-size: 11px; line-height: 1.35; }
   .exCard .n { color: var(--dim); font-size: 10px; margin-top: 5px; }
 
-  /* themed dialog (rename, delete confirm, etc. — replaces prompt/confirm) */
+  /* themed dialog (rename, delete confirm, etc. - replaces prompt/confirm) */
   #dlgWrap { position: fixed; inset: 0; z-index: 140; display: none;
     align-items: center; justify-content: center; background: rgba(0,0,0,.45); }
   #dlgWrap.shown { display: flex; }
@@ -445,10 +439,8 @@
     #sidebar { position: fixed; right: 0; left: auto; top: 46px; bottom: 24px;
       width: 250px !important; z-index: 70;
       transform: translateX(105%); transition: transform .2s ease;
-      box-shadow: 0 0 24px rgba(0,0,0,.4); border-right: 0;
-      border-left: 1px solid var(--line); }
-    #sidebar.collapsed { width: 250px !important; overflow: visible;
-      border-left: 1px solid var(--line); }
+      box-shadow: 0 0 24px rgba(0,0,0,.4); }
+    #sidebar.collapsed { width: 250px !important; overflow: visible; }
     #sidebar.mobile-open { transform: none; }
     #mobileBackdrop { position: fixed; inset: 46px 0 24px 0;
       background: rgba(0,0,0,.45); z-index: 65; }
@@ -471,7 +463,7 @@
     #vimBtn { display: none; }
     #fontMinus, #fontPlus { display: none; }
 
-    /* terminal: a real bottom sheet — full-bleed, rounded top, above
+    /* terminal: a real bottom sheet - full-bleed, rounded top, above
        the status bar; a dragged desktop position is neutralized */
     #term { left: 0 !important; right: 0 !important; top: auto !important;
       bottom: 24px !important; width: auto; height: 48vh;
@@ -480,12 +472,12 @@
     body.term-open #runFab { bottom: calc(48vh + 36px); }
 
     /* with the terminal closed, the pill becomes a full-width bar
-       directly above the status bar — tap to expand */
+       directly above the status bar - tap to expand */
     #termPill { left: 0; right: 0; bottom: 24px; width: auto;
       justify-content: center; border-radius: 0;
       border-left: 0; border-right: 0; border-bottom: 0; }
 
-    /* status bar: no status text on mobile — full copyright on the
+    /* status bar: no status text on mobile - full copyright on the
        left edge, icon-only linkedin + website on the right edge */
     #statusbar { padding: 0 10px; gap: 8px; font-size: 10.5px;
       width: 100%; box-sizing: border-box; }
@@ -612,7 +604,6 @@
       </span>
     </div>
     <div id="tree"></div>
-    <div id="sideFoot">virtual file system</div>
   </aside>
 
   <div id="main">
@@ -637,6 +628,7 @@
 <footer id="statusbar">
   <div class="sb-left">
     <span id="statusTxt">Loading compiler...</span>
+    <span class="sb-entry" id="sbFolder" style="display:none"></span>
   </div>
   <div class="sb-right">
     <a class="sb-link" href="LICENSE" target="_blank" rel="noopener" title="MIT License" aria-label="MIT License">© 2026 Nabeel Ali Hashmi · MIT</a>
@@ -799,7 +791,10 @@ try {
     project.open = project.open.filter(p => project.files.has(p));
     if (!project.open.includes(project.active)) project.open.unshift(project.active);
     if (saved.name) projName = saved.name;
-    if (saved.dirName) $('sideFoot').textContent = 'folder: ' + saved.dirName;
+    if (saved.dirName) {
+      $('sbFolder').textContent = saved.dirName;
+      $('sbFolder').style.display = '';
+    }
   }
 } catch (e) {}
 
@@ -807,7 +802,7 @@ try {
    demo/hello/main.ark; keep the two in sync). ${ is escaped so the
    JS template literal passes the interpolation through verbatim. */
 if (project.files.size === 0) {
-  addFile('/main.ark', `// Hello World — your first Ark program.
+  addFile('/main.ark', `// Hello World: your first Ark program.
 // print(...) writes a line to the terminal. Double-quoted strings
 // interpolate \${expressions} and bare \$names.
 
@@ -1015,7 +1010,8 @@ $('openDirBtn').addEventListener('click', async () => {
     project.active = project.entry;
     project.open = [project.entry];
     projName = dir.name;
-    $('sideFoot').textContent = 'folder: ' + dir.name;
+    $('sbFolder').textContent = dir.name;
+    $('sbFolder').style.display = '';
     $('saveBtn').classList.add('hasfile');
     openTab(project.entry);
     toast('Opened ' + found.length + ' file' + (found.length > 1 ? 's' : '') + ' from disk');
@@ -1046,7 +1042,7 @@ function pickFilesFallback() {
   inp.click();
 }
 
-/* save: Ctrl+S saves into the virtual file system */
+/* save: Ctrl+S saves into the project */
 async function saveProject() {
   const dirty = [...project.files.values()].filter(f => f.dirty);
   if (!dirty.length) { toast('Nothing to save'); return; }
@@ -1069,12 +1065,12 @@ async function saveProject() {
       toast('Saved to disk');
       return;
     } catch (err) {
-      toast('Disk save failed, kept in virtual file system');
+      toast('Disk save failed, kept in editor');
     }
   }
   for (const f of dirty) f.dirty = false;
   renderTree(); renderTabs(); persistProject();
-  toast('Saved in virtual file system');
+  toast('Saved');
 }
 
 $('saveBtn').addEventListener('click', saveProject);
@@ -1097,7 +1093,7 @@ $('aboutBtn').addEventListener('click', () => $('aboutWrap').classList.add('show
 $('aboutWrap').addEventListener('click', () => $('aboutWrap').classList.remove('shown'));
 $('aboutClose').addEventListener('click', () => $('aboutWrap').classList.remove('shown'));
 
-/* examples: demo/registry.json + demo/<id>/<file> — each example
+/* examples: demo/registry.json + demo/<id>/<file> - each example
    replaces the current project (entry + tabs + sidebar) after a
    confirm when any file is dirty. */
 let examplesCache = null;
@@ -1662,7 +1658,7 @@ require(['vs/editor/editor.main'], () => {
     ],
   });
 
-  /* FORMATTING — the REAL Ark formatter (src/compiler/format) exposed
+  /* FORMATTING - the REAL Ark formatter (src/compiler/format) exposed
      by the wasm as arkFormat, relayed through the worker.
      Shift+Alt+F formats the whole document. Typing `}` reindents that
      line instantly (local brace match, no wasm round trip). */
@@ -1746,7 +1742,7 @@ require(['vs/editor/editor.main'], () => {
       // Closer alone on the line (or overtype of the auto-closed one):
       // dedent the line to the opener's indent. Same-line openers make
       // this a no-op, so inline code is never touched. For ) and ]
-      // only dedent when the line holds the closer alone — mid-line
+      // only dedent when the line holds the closer alone - mid-line
       // content like f(x  ) stays put.
       if (ch === '}') {
         if (body.trim() === '' || atLineEnd || nextCh === ch) {
@@ -1759,7 +1755,7 @@ require(['vs/editor/editor.main'], () => {
     },
   });
 
-  /* COMPLETION — keywords, types, every builtin (the checker's real
+  /* COMPLETION - keywords, types, every builtin (the checker's real
      list), plus everything declared across the project's files. */
   const ARK_BUILTINS = [
     ['print', 'print(v)'], ['str', 'str(v) string'], ['int', 'int(v) int'],

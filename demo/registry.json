@@ -4,7 +4,7 @@
     {
       "id": "hello",
       "title": "Hello World",
-      "blurb": "print, strings, ${} interpolation — your first Ark program.",
+      "blurb": "print, strings, ${} interpolation - your first Ark program.",
       "files": ["main.ark"],
       "entry": "main.ark"
     },
@@ -32,7 +32,7 @@
     {
       "id": "match",
       "title": "Match",
-      "blurb": "Switch by value with boolean case patterns — an expression, not a statement.",
+      "blurb": "Switch by value with boolean case patterns - an expression, not a statement.",
       "files": ["main.ark"],
       "entry": "main.ark"
     },
@@ -90,6 +90,13 @@
       "title": "Modules (2 files)",
       "blurb": "use \"./utils\" imports a file; namespaces keep two files collision-free.",
       "files": ["main.ark", "utils.ark"],
+      "entry": "main.ark"
+    },
+    {
+      "id": "mandelbrot",
+      "title": "Mandelbrot, in Parallel",
+      "blurb": "parallel() fans one task per scanline - a fractal in 40 lines, no threads API.",
+      "files": ["main.ark"],
       "entry": "main.ark"
     }
   ]

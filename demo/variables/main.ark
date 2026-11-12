@@ -1,4 +1,4 @@
-// Variables & types — inference does the work, declarations add rigor.
+// Variables & types - inference does the work, declarations add rigor.
 
 x = 42          // int inferred
 f = 2.5         // float

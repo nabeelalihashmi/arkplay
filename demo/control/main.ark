@@ -1,4 +1,4 @@
-// Control flow — conditions in parens, bodies in braces, no ceremony.
+// Control flow - conditions in parens, bodies in braces, no ceremony.
 
 x = 7
 if (x > 5) {

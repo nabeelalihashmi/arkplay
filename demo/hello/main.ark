@@ -1,4 +1,4 @@
-// Hello World — your first Ark program.
+// Hello World - your first Ark program.
 // print(...) writes a line to the terminal. Double-quoted strings
 // interpolate ${expressions} and bare $names.
 

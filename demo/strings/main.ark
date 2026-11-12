@@ -1,4 +1,4 @@
-// Strings — interpolation, rune-safe indexing, heredocs.
+// Strings - interpolation, rune-safe indexing, heredocs.
 
 s = "The Ark Programming Language"
 print(len(s), len("héllo"))    // len counts RUNES: héllo is 5
@@ -10,10 +10,10 @@ print(s[4:7] + "!")
 n = 42
 print("value: ${n}, next: ${n + 1}")
 
-// Single quotes are PLAIN — no interpolation:
+// Single quotes are PLAIN - no interpolation:
 print('plain $n stays literal')
 
-// Triple quotes are raw multiline text — verbatim, nothing special:
+// Triple quotes are raw multiline text - verbatim, nothing special:
 form = """<form id="main">
   <label>$name</label>
 </form>"""

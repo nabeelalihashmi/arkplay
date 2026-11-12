@@ -1,4 +1,4 @@
-// utils.ark — an Ark module: declarations only, no top-level code.
+// utils.ark - an Ark module: declarations only, no top-level code.
 // Everything is exported unless marked private.
 
 const NAME = "the utils module"
