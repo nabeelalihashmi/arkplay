@@ -1418,7 +1418,8 @@ worker.onmessage = (event) => {
     if (m.stdout) termLine(m.stdout.replace(/\n$/, ''), 'out');
     if (m.stderr) termLine(m.stderr, 'err');
     if (!m.success && m.error) termLine(m.error, 'err');
-    if (m.success && !m.stdout && !m.stderr) termLine('(program finished with no output)', 'sys');
+    if (m.success && typeof m.value === 'string') termLine('(program value: ' + m.value + ')', 'sys');
+    if (m.success && !m.stdout && !m.stderr && typeof m.value !== 'string') termLine('(program finished with no output)', 'sys');
     setStatus(m.success ? 'Finished' : 'Error, see terminal');
 
     if (!m.success && m.error) setErrorMarkers(m.error);
